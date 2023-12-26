@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const cors = require("cors");
+ const cors = require("cors");
 // const bodyParser = require("body-parser");
 
 const DB_URL = require("./config/db.config");
@@ -12,7 +12,8 @@ const { port, Origin } = require("./config/server.config");
 // const menuModel = require("./model/menuDetails.model");
 
 const app = express();
-
+app.use(cors())
+app.use(express.json())
 
 
 
@@ -34,6 +35,8 @@ async function connectDb() {
   });
 
   require("./route/auth.route")(app)
+  require("./route/comment.route")(app)
+  require("./route/post.route")(app)
 
   app.listen(port, () => {
     console.log("listening...");
